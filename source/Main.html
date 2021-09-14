@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="main.css">
+</head>
+    <body>
+    <div class="form_wrapper">
+        <div class="form_container">
+          <div class="title_container">
+            <h2>Credit Approval Predictor</h2>
+          </div>
+          <div class="row clearfix">
+            <div class="">
+              <form>
+                <form action="http://127.0.0.1:5000/CreditPredictor" method="post">
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                 <input type="number" name="ID" placeholder="Client ID" required />
+                </div>
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                  <input type="number" name="LIMIT_BAL" placeholder="Credit Limit" required />
+                </div>
+
+                <div class="input_field radio_option">
+                    <input type="radio" name="SEX" id="rd1" value="1">
+                    <label for="rd1">Male</label>
+                    <input type="radio" name="SEX" id="rd2" value="2" checked>
+                    <label for="rd2">Female</label>
+                </div>
+                
+                <div class="input_field select_option">
+                    <select name="EDUCATION">
+                      <option>Education Level</option>
+                      <option value="1">Graduate School</option>
+                      <option value="2">University</option>
+                      <option value="3">High School</option>
+                      <option value="4">Others</option>
+                      <option value="5">Unknown</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                  </div>
+
+                <div class="row clearfix">  
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="AGE" placeholder="Age" required />
+                </div>
+                </div>
+
+
+                <div class="input_field select_option">
+                    <select name="PAY_0">
+                      <option>Repayment Status for Current Month</option>
+                      <option value="-1">Pay duly</option>
+                      <option value="1">Payment delay 1 mmth</option>
+                      <option value="2">Payment delay 2 mmth</option>
+                      <option value="3">Payment delay 3 mmth</option>
+                      <option value="4">Payment delay 4 mmth</option>
+                      <option value="5">Payment delay 5 mmth</option>
+                      <option value="6">Payment delay 6 mmth</option>
+                      <option value="7">Payment delay 7 mmth</option>
+                      <option value="8">Payment delay 8 mmth</option>
+                      <option value="9">Payment delay 9 mmth</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                  </div>
+                  <div class="input_field select_option">
+                    <select name="PAY_2">
+                      <option>Repayment Status 1 Month Ago</option>
+                      <option value="-1">Pay duly</option>
+                      <option value="1">Payment delay 1 mmth</option>
+                      <option value="2">Payment delay 2 mmth</option>
+                      <option value="3">Payment delay 3 mmth</option>
+                      <option value="4">Payment delay 4 mmth</option>
+                      <option value="5">Payment delay 5 mmth</option>
+                      <option value="6">Payment delay 6 mmth</option>
+                      <option value="7">Payment delay 7 mmth</option>
+                      <option value="8">Payment delay 8 mmth</option>
+                      <option value="9">Payment delay 9 mmth</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                  </div>
+                  <div class="input_field select_option">
+                    <select name="PAY_3">
+                      <option>Repayment Status 2 Months Ago</option>
+                      <option value="-1">Pay duly</option>
+                      <option value="1">Payment delay 1 mmth</option>
+                      <option value="2">Payment delay 2 mmth</option>
+                      <option value="3">Payment delay 3 mmth</option>
+                      <option value="4">Payment delay 4 mmth</option>
+                      <option value="5">Payment delay 5 mmth</option>
+                      <option value="6">Payment delay 6 mmth</option>
+                      <option value="7">Payment delay 7 mmth</option>
+                      <option value="8">Payment delay 8 mmth</option>
+                      <option value="9">Payment delay 9 mmth</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                  </div>
+                  <div class="input_field select_option">
+                    <select name="PAY_4">
+                      <option>Repayment Status 3 Months Ago</option>
+                      <option value="-1">Pay duly</option>
+                      <option value="1">Payment delay 1 mmth</option>
+                      <option value="2">Payment delay 2 mmth</option>
+                      <option value="3">Payment delay 3 mmth</option>
+                      <option value="4">Payment delay 4 mmth</option>
+                      <option value="5">Payment delay 5 mmth</option>
+                      <option value="6">Payment delay 6 mmth</option>
+                      <option value="7">Payment delay 7 mmth</option>
+                      <option value="8">Payment delay 8 mmth</option>
+                      <option value="9">Payment delay 9 mmth</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                  </div>
+                  <div class="input_field select_option">
+                    <select name="PAY_5">
+                      <option>Repayment Status 4 Months Ago</option>
+                      <option value="-1">Pay duly</option>
+                      <option value="1">Payment delay 1 mmth</option>
+                      <option value="2">Payment delay 2 mmth</option>
+                      <option value="3">Payment delay 3 mmth</option>
+                      <option value="4">Payment delay 4 mmth</option>
+                      <option value="5">Payment delay 5 mmth</option>
+                      <option value="6">Payment delay 6 mmth</option>
+                      <option value="7">Payment delay 7 mmth</option>
+                      <option value="8">Payment delay 8 mmth</option>
+                      <option value="9">Payment delay 9 mmth</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                  </div>
+                  <div class="input_field select_option">
+                    <select name="PAY_6">
+                      <option>Repayment Status 5 Months Ago</option>
+                      <option value="-1">Pay duly</option>
+                      <option value="1">Payment delay 1 mmth</option>
+                      <option value="2">Payment delay 2 mmth</option>
+                      <option value="3">Payment delay 3 mmth</option>
+                      <option value="4">Payment delay 4 mmth</option>
+                      <option value="5">Payment delay 5 mmth</option>
+                      <option value="6">Payment delay 6 mmth</option>
+                      <option value="7">Payment delay 7 mmth</option>
+                      <option value="8">Payment delay 8 mmth</option>
+                      <option value="9">Payment delay 9 mmth</option>
+                    </select>
+                    <div class="select_arrow"></div>
+                  </div>
+
+                <div class="row clearfix">  
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="BILL_AMT1" placeholder="Current bill" required />
+                </div>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="PAY_AMT1" placeholder="Current payment" required />
+                </div>
+                <br><br>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="BILL_AMT2" placeholder="Past 1 mth bill" required />
+                </div>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="PAY_AMT2" placeholder="Pay Past 1mth" required />
+                </div>
+                <br><br>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="BILL_AMT3" placeholder="Past 2 mth bill" required />
+                </div>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="PAY_AMT3" placeholder="Pay Past 2mth" required />
+                </div>
+                <br><br>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="BILL_AMT4" placeholder="Past 3 mth bill" required />
+                </div>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="PAY_AMT4" placeholder="Pay Past 3mth" required />
+                </div>
+                <br><br>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="BILL_AMT5" placeholder="Past 4 mth bill" required />
+                </div>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="PAY_AMT5" placeholder="Pay Past 4mth" required />
+                </div>
+                <br><br>
+
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="BILL_AMT6" placeholder="Past 5 mth bill" required />
+                </div>    
+                                     
+                <div class="col_half"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="number" name="PAY_AMT6" placeholder="Pay Past 5mth" required />
+                </div><br><br>
+                </div>
+
+
+                  <div class="input_field checkbox_option">
+                      <input type="checkbox" name="Keep_Data" id="cb2">
+                      <label for="cb2">I want to keep a record in the database</label>
+                  </div>
+                <input class="button" type="submit" value="Submit for Prediction" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+
+</html>
