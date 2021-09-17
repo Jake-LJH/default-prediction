@@ -18,7 +18,7 @@ app = Flask(__name__)
 #app.config['MAX_CONTENT_PATH']
 
 
-@app.route('/upload_file')
+@app.route('/')
 def upload_file():
     # test commit
     return render_template('default_prediction.html')
@@ -33,8 +33,8 @@ def default_prediction():
         print("here")
         file_xl = pd.read_excel(f,index_col=0)
         data = pd.DataFrame(file_xl)
-        data['TOT_PAY_STATUS']=data['PAY_0']+data['PAY_2']+data['PAY_3']+data['PAY_4']+data['PAY_5']+data['PAY_6']
-        data['BILL_AMT1_OVER_LIMIT_BAL']=data['BILL_AMT1']/data['LIMIT_BAL']
+        #data['TOT_PAY_STATUS']=data['PAY_0']+data['PAY_2']+data['PAY_3']+data['PAY_4']+data['PAY_5']+data['PAY_6']
+        data=data[['PAY_0','BILL_AMT1','AGE','LIMIT_BAL','BILL_AMT2','BILL_AMT3','BILL_AMT4','PAY_AMT1','PAY_AMT2','PAY_AMT3']]
     
         #prediction_model = pickle.load(open("cc_model.pkl","rb"))
         default_predict = Prediction.getPredicted(data)
