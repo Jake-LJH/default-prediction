@@ -9,6 +9,7 @@ import pickle
 from pandas import ExcelWriter
 import xlsxwriter
 import jinja2 
+from model.prediction import Prediction
 
 
 app = Flask(__name__)
@@ -35,34 +36,11 @@ def default_prediction():
         data['TOT_PAY_STATUS']=data['PAY_0']+data['PAY_2']+data['PAY_3']+data['PAY_4']+data['PAY_5']+data['PAY_6']
         data['BILL_AMT1_OVER_LIMIT_BAL']=data['BILL_AMT1']/data['LIMIT_BAL']
     
-        prediction_model = pickle.load(open("cc_model.pkl","rb"))
-        default_predict = prediction_model.predict(data)
-        print("prediction",default_predict)
+        #prediction_model = pickle.load(open("cc_model.pkl","rb"))
+        default_predict = Prediction.getPredicted(data)
         
-        if default_predict != "":
-            data['default payment prediction'] = default_predict
-            
-            output = BytesIO()
-            writer = pd.ExcelWriter(output, engine='xlsxwriter')
-            data.to_excel(writer, sheet_name='Sheet1')
-            writer.save()
-            #output_file.seek(0)
-            print(data)
-            workbook = writer.book
-            worksheet = writer.sheets['Sheet1']
-            
-            writer.close()
-            #with ExcelWriter("prediction.xlsx") as writer:
-            
-            output.seek(0) 
-             #   predicted_xl = data.to_excel(writer)
-        print("predictedfile",workbook)
-        msg ="success"
         
-    return send_file(output,
-                     attachment_filename='predictionresult.xlsx',
-                     mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                     as_attachment=True)       
+    return default_predict   
         
 if __name__ == '__main__':
     app.run(debug = True)
