@@ -8,6 +8,7 @@ import pandas as pd
 import pickle
 from pandas import ExcelWriter
 import xlsxwriter
+import jinja2 
 
 
 app = Flask(__name__)
@@ -34,7 +35,7 @@ def default_prediction():
         data['TOT_PAY_STATUS']=data['PAY_0']+data['PAY_2']+data['PAY_3']+data['PAY_4']+data['PAY_5']+data['PAY_6']
         data['BILL_AMT1_OVER_LIMIT_BAL']=data['BILL_AMT1']/data['LIMIT_BAL']
     
-        prediction_model = pickle.load(open("credit_card_default_random_forest_trainedby_class_imbalance_using_undersampling.pkl","rb"))
+        prediction_model = pickle.load(open("cc_model.pkl","rb"))
         default_predict = prediction_model.predict(data)
         print("prediction",default_predict)
         
