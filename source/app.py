@@ -18,6 +18,7 @@ app = Flask(__name__)
 
 @app.route('/upload_file')
 def upload_file():
+    # test commit
     return render_template('default_prediction.html')
 
 @app.route('/default_prediction', methods = ['GET','POST'])
