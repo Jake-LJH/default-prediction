@@ -10,6 +10,7 @@ from pandas import ExcelWriter
 import xlsxwriter
 import jinja2 
 from model.prediction import Prediction
+from model.User import User
 
 
 app = Flask(__name__)
@@ -17,8 +18,54 @@ app = Flask(__name__)
 #app.config['UPLOAD_FOLDER']
 #app.config['MAX_CONTENT_PATH']
 
+@app.route('/') #default goes to login screen
+def homepage():
+    return render_template('login.html',message="Please log in or sign up")
 
-@app.route('/')
+@app.route('/Log', methods= ['GET','POST']) #route for login.html submit button
+def verifyUser():
+    
+        email = request.form['email']
+        password = request.form['password']
+        Jusers=User.getUser(email,password)
+
+        print(Jusers)
+
+        if Jusers == 0:
+            return render_template('login.html',message="Invalid Login Credentials")
+
+        else:
+            return render_template('default_prediction.html')
+
+@app.route('/signup') #new user page render 
+def signup():
+    return render_template("createAccount.html") 
+
+@app.route('/newUser', methods=['GET','POST']) #create new user account
+def insertUsers():
+    try:
+        name = request.form['name']
+        email = request.form['email']
+        organization = request.form['organization']
+        password = request.form['password']
+        cpassword = request.form['cpassword']
+        #AccountType = request.form['accType']
+
+        if cpassword != password: #password check if same
+            return render_template("signup.html",message="Passwords does not match")
+        else:    
+            create_result=User.insertUser(name,email,password,organization)
+            if create_result==True: 
+                return render_template('login.html',message="New User Created") #create new user response
+            else:    
+                return render_template('login.html',message="User email already exists") #fail to create new user notification
+
+    except Exception as err:
+        print(err)
+        return render_template('signup.html',message="an error occured")
+
+
+@app.route('/predict') #direct route for prediction page
 def upload_file():
     # test commit
     return render_template('default_prediction.html')
