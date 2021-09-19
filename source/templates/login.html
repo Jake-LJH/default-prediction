@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+    <body>
+    <div class="form_wrapper">
+        <div class="form_container">
+          <div class="title_container">
+            <h2>User Log In</h2>
+          </div>
+          <div class="row clearfix">
+            <div class="">
+              <form>
+                <form action="http://127.0.0.1:5000/Log" method="post">
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                 <input type="email" name="email" placeholder="Your Email Address" required />
+                </div>
+                 <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                  <input type="password" name="password" placeholder="Your Password" required />
+                 </div>
+
+                <input class="button" type="submit" value="Proceed to Credit Prediction" /></div>
+                <div style="text-align: center">
+                <br><a href="http://127.0.0.1:5000/signup" method="post">New User Sign Up</a><br>
+                <p>{{message}}</p>
+              </form>     
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </body>
+
+</html>
