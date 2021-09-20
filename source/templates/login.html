@@ -6,7 +6,7 @@
     <title>Login</title>
 
     <link rel="stylesheet" href="/static/css/main.css">
-
+    <script src="https://use.fontawesome.com/a0361cad77.js"></script>
 </head>
     <body>
       <div class="form_wrapper">
@@ -17,13 +17,13 @@
             <div class="row clearfix">
               <div class="">
                 
-                <form action="{{ url_for('login') }}" method="post">
+                <form action="{{ url_for('verify') }}" method="post">
 
-                  <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                  <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
                     <input type="email" name="email" placeholder="Your Email Address" required />
                   </div>
 
-                  <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                  <div class="input_field"> <span><i aria-hidden="true" class="fa fa-key"></i></span>
                     <input type="password" name="password" placeholder="Your Password" required />
                   </div>
 

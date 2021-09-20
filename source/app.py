@@ -39,7 +39,7 @@ def signup():
     return render_template("createAccount.html") 
 
 @app.route('/newUser', methods=['GET','POST']) #create new user account
-def insertUsers():
+def newUser():
     try:
         if request.method == 'POST':
             name = request.form['name']
@@ -100,7 +100,7 @@ def staticPage(url):
         abort(404)
 
 @app.route('/')
-def default():
+def login():
     try:
         return redirect("login.html")
     except Exception as err:

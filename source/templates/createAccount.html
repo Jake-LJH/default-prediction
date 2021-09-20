@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
     <link rel="stylesheet" href="/static/css/main.css">
+    <script src="https://use.fontawesome.com/a0361cad77.js"></script>
 </head>
     <body>
     <div class="form_wrapper">
@@ -14,7 +18,7 @@
               
               <form action="{{ url_for('newUser') }}" method="post">
 
-                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
                   <input type="text" name="name" placeholder="Your Name" required />
                 </div>
 
@@ -22,15 +26,15 @@
                   <input type="email" name="email" placeholder="Your Email Address" required />
                 </div>
 
-                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-key"></i></span>
                   <input type="password" name="password" placeholder="Your Password" required />
                 </div>
 
-                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-key"></i></span>
                   <input type="password" name="cpassword" placeholder="Please re-enter your Password" required />
                 </div>
 
-                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-building"></i></span>
                   <input type="text" name="organization" id="organization" placeholder="Your Organization (where applicable)"  />
                 </div>
 
