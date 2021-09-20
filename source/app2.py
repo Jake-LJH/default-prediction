@@ -1,6 +1,6 @@
 from io import BytesIO
 from logging import debug
-from flask import Flask, render_template, url_for, request, send_file
+from flask import Flask, render_template, url_for, request, send_file, abort, make_response, redirect
 from pandas.io import pickle
 from werkzeug.utils import secure_filename
 import json
@@ -9,20 +9,17 @@ import pickle
 from pandas import ExcelWriter
 import xlsxwriter
 import jinja2 
+from flask_cors import CORS
 from model.prediction import Prediction
 from model.User import User
 
 
 app = Flask(__name__)
-
+CORS(app)
 #app.config['UPLOAD_FOLDER']
 #app.config['MAX_CONTENT_PATH']
 
-@app.route('/') #default goes to login screen
-def homepage():
-    return render_template('login.html',message="Please log in or sign up")
-
-@app.route('/Log', methods= ['GET','POST']) #route for login.html submit button
+@app.route('/verify', methods= ['POST']) #route for login.html submit button
 def verifyUser():
     
         email = request.form['email']
@@ -44,22 +41,24 @@ def signup():
 @app.route('/newUser', methods=['GET','POST']) #create new user account
 def insertUsers():
     try:
-        name = request.form['name']
-        email = request.form['email']
-        organization = request.form['organization']
-        password = request.form['password']
-        cpassword = request.form['cpassword']
-        #AccountType = request.form['accType']
+        if request.method == 'POST':
+            name = request.form['name']
+            email = request.form['email']
+            organization = request.form['organization']
+            password = request.form['password']
+            cpassword = request.form['cpassword']   
+            #AccountType = request.form['accType']
 
-        if cpassword != password: #password check if same
-            return render_template("signup.html",message="Passwords does not match")
-        else:    
-            create_result=User.insertUser(name,email,password,organization)
-            if create_result==True: 
-                return render_template('login.html',message="New User Created") #create new user response
+            if cpassword != password: #password check if same
+                return render_template("createAccount.html",message="Passwords does not match")
             else:    
-                return render_template('login.html',message="User email already exists") #fail to create new user notification
-
+                create_result = User.insertUser(name,email,password,organization)
+                if create_result == True: 
+                    return render_template('login.html',message="New User Created") #create new user response
+                else:    
+                    return render_template('login.html',message="User email already exists") #fail to create new user notification
+        else:
+            return render_template("login.html")
     except Exception as err:
         print(err)
         return render_template('signup.html',message="an error occured")
@@ -88,6 +87,42 @@ def default_prediction():
         
         
     return default_predict   
-        
+
+# ***** Adding the Default route ******
+
+@app.route('/<string:url>')
+def staticPage(url):
+    print("static page",url)
+    try:
+        return render_template(url)
+    except Exception as err:
+        print(err)
+        abort(404)
+
+@app.route('/')
+def default():
+    try:
+        return redirect("login.html")
+    except Exception as err:
+        abort(404)
+
+@app.route('/logout') #define the api route
+def logout():
+    resp = make_response(redirect("login.html"))
+    resp.delete_cookie('jwt')
+    
+    return resp
+
+# ***** Error Handling ******
+
+@app.errorhandler(404)
+def page_not_found(e):
+    
+    return render_template('404.html'), 404
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug = True)

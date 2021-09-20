@@ -46,26 +46,21 @@ class User:
         cursor.execute(sql,(email,))
         row = cursor.fetchall()
         if len(row) == 0:
-
-            userid=cursor
-            password = password.encode('utf8')
-            password = bcrypt.hashpw(password, bcrypt.gensalt())
-            print(password)
         
-            sql="insert into Account(name,email,password,organization) Values(%s,%s,%s,%s)"
+            sql="insert into user(username,email,password,organization) values(%s,%s,%s,%s)"
             users = cursor.execute(sql,(name,email,password,organization))
         
             dbConn.commit()
-            rows=cursor.rowcount
+            rows = cursor.rowcount
             print(cursor.lastrowid)
-            create_result=True
+            create_result = True
             dbConn.close()
             return create_result
         
 
         else:
 
-            create_result=False
+            create_result = False
             dbConn.close()
             return create_result
           
