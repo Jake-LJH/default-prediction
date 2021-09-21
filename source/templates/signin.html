@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="/static/css/main.css">
+
+</head>
+    <body>
+      <div class="form_wrapper">
+          <div class="form_container">
+            <div class="title_container">
+              <h2>User Login</h2>
+            </div>
+            <div class="row clearfix">
+              <div class="">
+                
+                <form action="{{ url_for('login') }}" method="post">
+
+                  <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                    <input type="email" name="email" placeholder="Your Email Address" required />
+                  </div>
+
+                  <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                    <input type="password" name="password" placeholder="Your Password" required />
+                  </div>
+
+                  <input class="button" type="submit" value="Login" />
+                  
+                  <div style="text-align: center">
+                    <br>
+                    <a href="http://127.0.0.1:5000/signup" method="post">No account? Sign up here</a>
+                    <br>
+                    <p>{{message}}</p>
+                  </div>
+
+                </form>     
+              </div>
+            </div>
+          </div>
+        </div>
+    </body>
+</html>

@@ -1,73 +1,68 @@
 from model.DatabasePool import DatabasePool
-from config.Settings import Settings
-import jwt
-import datetime
 import bcrypt
+from itsdangerous import URLSafeTimedSerializer
+from config.Settings import Settings
+
+secretKey="a12nc)238OmPq#cxOlm*a"
+salt = 'assignment_two'
 
 class User:
 
     @classmethod
-    def registerUser(cls,username, email, password):
+    def getUser(cls,email,password):
         try:
-            dbConn = DatabasePool.getConnection()
-            cursor = dbConn.cursor(dictionary=True)
-            password = password.encode()
-            hashed = bcrypt.hashpw(password, bcrypt.gensalt())
 
-            sql = "INSERT into user(username, email, password) values(%s,%s,%s)"   
-            cursor.execute(sql,(username, email, hashed))
-            dbConn.commit()
-            recordCount = cursor.rowcount
-            print(cursor.lastrowid)
-            return recordCount
-        finally: 
-            dbConn.close()
-    
-
-    @classmethod
-    def deleteUser(cls,userid):
-        try:
-            dbConn = DatabasePool.getConnection()
-            cursor = dbConn.cursor(dictionary=True)
-
-            sql = "DELETE from user WHERE id = %s"   
-            cursor.execute(sql,(userid,))
-            dbConn.commit()
-
-            recordCount = cursor.rowcount
-            return recordCount
-        finally: 
-            dbConn.close()
-
-    @classmethod
-    def loginUser(cls,userJSON):
-        try:
             dbConn=DatabasePool.getConnection()
-            db_Info = dbConn.connection_id
-            print(f"Connected to {db_Info}")
-
-            print(userJSON)
             cursor = dbConn.cursor(dictionary=True)
-            sql = "select * from user where email=%s"
+            sql="select * from Account where email=%s"
+            cursor.execute(sql,(email,))
+            users = cursor.fetchone()
+            
+        except:
+            users=0
+            return users
 
-            cursor.execute(sql,(userJSON["email"],))
-            user = cursor.fetchone() 
-            if user==None:
-                return {"jwt":""}
-
-            else:
-                
-                password = userJSON["password"].encode()
-                hashed = user['password'].encode()
-                print(password)
-                print(hashed)
-                if bcrypt.checkpw(password, hashed):#True means valid password 
-                    payload={"userid":user["id"],"username":user["username"],"email":user["email"],"exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=7200)}
-
-                    jwtToken=jwt.encode(payload,Settings.secretKey,algorithm="HS256")
-                    return {"jwt":jwtToken}
-                else:
-                    return {"jwt":""}
         finally:
             dbConn.close()
+            print("release connection")
 
+    @classmethod
+    def insertUser(cls,name,email,password,organization):
+        dbConn=DatabasePool.getConnection()
+        cursor = dbConn.cursor(dictionary=True)
+
+        sql="select * from Account where email=%s" #checks for existing user
+        cursor.execute(sql,(email,))
+        row = cursor.fetchall()
+        if len(row) == 0:
+        
+            sql="insert into user(username,email,password,organization) values(%s,%s,%s,%s)"
+            users = cursor.execute(sql,(name,email,password,organization))
+        
+            dbConn.commit()
+            rows = cursor.rowcount
+            print(cursor.lastrowid)
+            create_result = True
+            dbConn.close()
+            return create_result
+        
+
+        else:
+
+            create_result = False
+            dbConn.close()
+            return create_result
+          
+
+
+
+
+        
+
+        
+
+
+
+
+
+  

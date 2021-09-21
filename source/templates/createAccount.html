@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="https://use.fontawesome.com/a0361cad77.js"></script>
+</head>
+    <body>
+    <div class="form_wrapper">
+        <div class="form_container">
+          <div class="title_container">
+            <h2>Create New Account</h2>
+          </div>
+          <div class="row clearfix">
+            <div class="">
+              
+              <form action="{{ url_for('newUser') }}" method="post">
+
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                  <input type="text" name="name" placeholder="Your Name" required />
+                </div>
+
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+                  <input type="email" name="email" placeholder="Your Email Address" required />
+                </div>
+
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-key"></i></span>
+                  <input type="password" name="password" placeholder="Your Password" required />
+                </div>
+
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-key"></i></span>
+                  <input type="password" name="cpassword" placeholder="Please re-enter your Password" required />
+                </div>
+
+                <div class="input_field"> <span><i aria-hidden="true" class="fa fa-building"></i></span>
+                  <input type="text" name="organization" id="organization" placeholder="Your Organization (where applicable)"  />
+                </div>
+
+                <div class="input_field radio_option">
+                  <input type="radio" name="accType" id="rd1" value="1">
+                  <label for="rd1">Individual</label>
+                  <input type="radio" name="accType" id="rd2" value="2" checked>
+                  <label for="rd2">Business</label>
+                </div>
+
+                <input class="button" type="submit" value="Create Account" /><br>
+                <br><a href={{ url_for('login') }} method="post">Already have an account? Login here</a><br><br>
+                <p>{{message}}{{name}}</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+
+</html>
