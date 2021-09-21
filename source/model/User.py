@@ -17,18 +17,7 @@ class User:
             sql="select * from Account where email=%s"
             cursor.execute(sql,(email,))
             users = cursor.fetchone()
-            print(type(users))
-            print(users)
-
-            hashed=users['password'].encode('utf8)')
-            password=password.encode('utf8)')
-             
-            if bcrypt.checkpw(password, hashed):#True means valid password 
-                return users
-
-            else:
-                users=0
-                return users
+            
         except:
             users=0
             return users
