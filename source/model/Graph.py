@@ -23,7 +23,13 @@ class Graph:
         no_default_0 = len(data[data['default payment prediction'] == 0])
         default_1 = len(data[data['default payment prediction'] == 1])
         proportion = [no_default_0,default_1]
-        axis.pie(proportion, labels = status,autopct='%1.2f%%')
+        #axis.pie(proportion, labels = status,autopct='%1.2f%%')
+        #autopct=lambda p: '{:.0f}%'.format(p * total / 100),
+        def func(pct, allvalues):
+            absolute = int(pct / 100.*np.sum(allvalues))
+            return "{:.1f}%\n({:d})".format(pct, absolute)
+
+        axis.pie(proportion, labels = status,autopct = lambda pct: func(pct, proportion))
 
         # Convert plot to PNG image
         pngImage = io.BytesIO()
@@ -34,3 +40,5 @@ class Graph:
         pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
         
         return pngImageB64String  
+
+
