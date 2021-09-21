@@ -11,6 +11,7 @@ import xlsxwriter
 import jinja2 
 from flask_cors import CORS
 from model.prediction import Prediction
+from model.Graph import Graph
 from model.User import User
 from werkzeug.utils import secure_filename
 from flask.helpers import send_from_directory
@@ -99,7 +100,8 @@ def default_prediction():
             default_predict = Prediction.getPredicted(data,f.filename,app.config['UPLOAD_PATH'])
             predicted_table = pd.DataFrame(default_predict[['LIMIT_BAL','default payment prediction', 'probability']])
             print("result",default_predict)
-    return render_template('default_prediction.html',f_name= f.filename, predicted_table = predicted_table.to_html(classes="table table-striped table-bordered table-sm"))
+            pngImageB64String=Graph.generatePieChart(predicted_table)
+    return render_template('default_prediction.html',f_name= f.filename, predicted_table = predicted_table.to_html(classes="table table-striped table-bordered table-sm"),image=pngImageB64String)
 
 @app.route('/<filename>/download_file')   
 def download_file(filename)    :
