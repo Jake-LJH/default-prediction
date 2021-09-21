@@ -77,6 +77,25 @@
        background-color:rgba(0,0,0,0,3) !important ;
         background-size: cover;
    }
+   .dtHorizontalVerticalWrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      }
+      #dtHorizontalVertical th, td {
+      white-space: nowrap;
+      }
+      table.dataTable thead .sorting:after,
+      table.dataTable thead .sorting:before,
+      table.dataTable thead .sorting_asc:after,
+      table.dataTable thead .sorting_asc:before,
+      table.dataTable thead .sorting_asc_disabled:after,
+      table.dataTable thead .sorting_asc_disabled:before,
+      table.dataTable thead .sorting_desc:after,
+      table.dataTable thead .sorting_desc:before,
+      table.dataTable thead .sorting_desc_disabled:after,
+      table.dataTable thead .sorting_desc_disabled:before {
+      bottom: .5em;
+      }
 
 </style> 
 
@@ -90,7 +109,7 @@
     <div>
       <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
           <div class="container-fluid">
-              <a class="navbar-brand" href="#">Credit Card Default Prediction</a>
+              <a class="navbar-brand" href="#">Credit Card Default Detection</a>
           </div>
       </nav>
     </div>
@@ -112,9 +131,15 @@
                                       </td>
                                       <td>
                                           <div class ="form-group">
-                                          <input type ="submit" class="btn btn-primary btn-block">
+                                          <input type ="submit" class="btn btn-primary btn-block" name="Predict">
                                       </div>
                                       </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      {{f_name}}
+                                    </td>
+                                    <td><a href= "{{url_for('download_file', filename=f_name)}}" class="btn btn-primary btn-block" name ="Download">Download</a></td>
                                   </tr>
                                 </table>
                               </div>
@@ -128,5 +153,18 @@
           
           </form>
       </div>
+      <div class="row align-self-center w-100">
+        <div class="col-10 mx-auto">
+            <div calss="table table-responsive">
+                <table>
+                  {% block content %}
+                  {{predicted_table | safe}}
+                  {% endblock %}
+                </table>
+      </div>
+      </div>
+      </div>
+
   </body>
   </html>
+ 

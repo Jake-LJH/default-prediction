@@ -4,37 +4,40 @@ import pickle
 from io import BytesIO
 import pandas as pd
 from flask import Flask, render_template, url_for, request, send_file
+import os
 
 
 class Prediction:
     
     @classmethod
-    def getPredicted(cls,data):
+    def getPredicted(cls,data,filename,upload_path):
+    
         prediction_model = pickle.load(open("cc_model.pkl","rb"))
         default_predict = prediction_model.predict(data)
-        print(default_predict)
+        default_predict_prob = prediction_model.predict_proba(data)
+
         if default_predict != "":
-            print('yes')
-            
+
+            prob = []
             data['default payment prediction'] = default_predict
-            output = BytesIO()
-            writer = pd.ExcelWriter(output, engine='xlsxwriter')
+
+            for i in range(len(data['default payment prediction'])):
+                prob.append('{:.02}'.format(default_predict_prob[i][data['default payment prediction'].iloc[i]]))
+            data['probability'] = prob
+            
+            writer = pd.ExcelWriter(os.path.join(upload_path, filename), engine='xlsxwriter')
             data.to_excel(writer, sheet_name='Sheet1')
             writer.save()
-            #output_file.seek(0)
-            print(data)
+
             workbook = writer.book
             worksheet = writer.sheets['Sheet1']
             
-            writer.close()
-            #with ExcelWriter("prediction.xlsx") as writer:
-            
-            output.seek(0) 
-             #   predicted_xl = data.to_excel(writer)
-        print("predictedfile",workbook)
-        msg ="success"
+            writer.close()      
+
         
-        return send_file(output,
+        return data  
+        '''
+        send_file(output,
                      attachment_filename='predictionresult.xlsx',
                      mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                     as_attachment=True)    
+                     as_attachment=True)  ''' 
