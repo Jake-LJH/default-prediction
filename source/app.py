@@ -53,12 +53,12 @@ def newUser():
             organization = request.form['organization']
             password = request.form['password']
             cpassword = request.form['cpassword']   
-            #AccountType = request.form['accType']
+            accountType = request.form['accType']
 
             if cpassword != password: #password check if same
                 return render_template("createAccount.html",message="Passwords does not match")
             else:    
-                create_result = User.insertUser(name,email,password,organization)
+                create_result = User.insertUser(name,email,password,organization, accountType)
                 if create_result == True: 
                     return render_template('login.html',message="New User Created") #create new user response
                 else:    
@@ -98,11 +98,15 @@ def default_prediction():
     
 
             default_predict = Prediction.getPredicted(data,f.filename,app.config['UPLOAD_PATH'])
-            predicted_table = pd.DataFrame(default_predict[['LIMIT_BAL','default payment prediction', 'probability']])
-            print("result",default_predict)
-            pngImageB64String=Graph.generatePieChart(predicted_table)
-    return render_template('default_prediction.html',f_name= f.filename, predicted_table = predicted_table.to_html(classes="table table-striped table-bordered table-sm"),image=pngImageB64String)
+            df = pd.DataFrame(default_predict[['BILL_AMT1','default_result', 'probability']])
 
+            htmlTable = df.to_html(classes="table table-bordered table-hover", justify='center', table_id='myTable', na_rep='-')
+            
+            
+
+            pngImageB64String=Graph.generatePieChart(df)
+    return render_template('main.html',f_name= f.filename, table = htmlTable, image=pngImageB64String, records=len(df))
+#
 @app.route('/<filename>/download_file')   
 def download_file(filename)    :
     return send_from_directory(app.config['UPLOAD_PATH'], filename)

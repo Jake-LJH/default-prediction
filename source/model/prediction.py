@@ -19,10 +19,10 @@ class Prediction:
         if default_predict != "":
 
             prob = []
-            data['default payment prediction'] = default_predict
+            data['default_result'] = default_predict
 
-            for i in range(len(data['default payment prediction'])):
-                prob.append('{:.02}'.format(default_predict_prob[i][data['default payment prediction'].iloc[i]]))
+            for i in range(len(data['default_result'])):
+                prob.append('{:.02}'.format(default_predict_prob[i][data['default_result'].iloc[i]]))
             data['probability'] = prob
             
             writer = pd.ExcelWriter(os.path.join(upload_path, filename), engine='xlsxwriter')

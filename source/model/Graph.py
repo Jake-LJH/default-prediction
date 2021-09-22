@@ -15,13 +15,13 @@ class Graph:
         # Generate plot
         fig = Figure()
         axis = fig.add_subplot(1, 1, 1)
-        axis.set_title("Credit Card Default Prediction Chart")
+        #axis.set_title("Credit Card Default Prediction Chart")
         #axis = fig.add_axes([0,0,1,1])
         axis.axis('equal')
         status = ['No Default', 'Default']
 
-        no_default_0 = len(data[data['default payment prediction'] == 0])
-        default_1 = len(data[data['default payment prediction'] == 1])
+        no_default_0 = len(data[data['default_result'] == 0])
+        default_1 = len(data[data['default_result'] == 1])
         proportion = [no_default_0,default_1]
         #axis.pie(proportion, labels = status,autopct='%1.2f%%')
         #autopct=lambda p: '{:.0f}%'.format(p * total / 100),
