@@ -16,6 +16,7 @@ from model.User import User
 from werkzeug.utils import secure_filename
 from flask.helpers import send_from_directory
 import os
+from validation.Validator import *
 
 
 app = Flask(__name__)
@@ -27,18 +28,24 @@ app.config['UPLOAD_EXTENSIONS'] = ['.xlsx']
 
 @app.route('/verify', methods= ['POST']) #route for login.html submit button
 def verifyUser():
-    
+    try:
         email = request.form['email']
         password = request.form['password']
-        Jusers=User.getUser(email,password)
+        userSQLData = User.getUser({"email":email,"password":password})
+        
 
-        print(Jusers)
-
-        if Jusers == 0:
-            return render_template('login.html',message="Invalid Login Credentials")
+        if userSQLData["jwt"] == "":
+            error = 'Invalid Credentials. Please try again.'
+            return render_template("login.html", message=error)
 
         else:
-            return render_template('default_prediction.html')
+            resp = make_response(render_template("main.html"))
+            resp.set_cookie('jwt', userSQLData["jwt"])
+            return resp
+
+    except Exception as err:
+        print(err)
+        return render_template('login.html',message="Invalid Login Credentials")
 
 @app.route('/signup') #new user page render 
 def signup():
@@ -54,11 +61,12 @@ def newUser():
             password = request.form['password']
             cpassword = request.form['cpassword']   
             accountType = request.form['accType']
+            role = 'member'
 
             if cpassword != password: #password check if same
                 return render_template("createAccount.html",message="Passwords does not match")
             else:    
-                create_result = User.insertUser(name,email,password,organization, accountType)
+                create_result = User.insertUser(name,email,password,organization,accountType,role)
                 if create_result == True: 
                     return render_template('login.html',message="New User Created") #create new user response
                 else:    
@@ -67,15 +75,16 @@ def newUser():
             return render_template("login.html")
     except Exception as err:
         print(err)
-        return render_template('signup.html',message="an error occured")
+        return render_template('createAccount.html',message="an error occured")
 
-
-@app.route('/predict') #direct route for prediction page
-def upload_file():
-    return render_template('default_prediction.html')
+@app.route('/main', methods = ['GET'])
+@login_required
+def main():
+    return render_template("main.html",show_table=False)
 
 
 @app.route('/default_prediction', methods = ['GET','POST'])
+@login_required
 def default_prediction():
     print('yes')
     if request.method == 'POST':
@@ -116,25 +125,25 @@ def download_file(filename)    :
 
 #***** Adding the Default route ******
 
-@app.route('/<string:url>')
-def staticPage(url):
-    print("static page",url)
-    try:
-        return render_template(url)
-    except Exception as err:
-        print(err)
-        abort(404)
+#@app.route('/<string:url>')
+#def staticPage(url):
+#    print("static page",url)
+#    try:
+#        return render_template(url)
+#    except Exception as err:
+#        print(err)
+#        abort(404)
 
 @app.route('/')
 def login():
     try:
-        return redirect("login.html")
+        return render_template("login.html")
     except Exception as err:
         abort(404)
 
 @app.route('/logout') #define the api route
 def logout():
-    resp = make_response(redirect("login.html"))
+    resp = make_response(render_template("login.html"))
     resp.delete_cookie('jwt')
     
     return resp

@@ -9,8 +9,8 @@ class Settings:
     database='creditcard'
     
     user='root'
-    #password='root'
-    password ="password"
+    password='root'
+    #password ="password"
 
     #Staging on heroku
     #host=os.environ['HOST']
