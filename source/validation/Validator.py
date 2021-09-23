@@ -19,8 +19,9 @@ def login_required(func):
         if token:
             try:
                 payload = jwt.decode(token,Settings.secretKey,"HS256")
+                print("payload",payload)
                 g.username = payload['username']
-                g.userid = payload['userid']
+                g.email = payload['email']
             except jwt.exceptions.InvalidSignatureError as err:
                 print(err)
                 auth = False
