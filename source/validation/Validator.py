@@ -27,7 +27,7 @@ def login_required(func):
 
         if auth == False:
 
-            return redirect("login.html")
+            return render_template("login.html")
 
         return func(*args, **kwargs)
     return secure_login

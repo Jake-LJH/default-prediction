@@ -1,11 +1,9 @@
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).find("td:first").text().toLowerCase().indexOf(value) > -1)
-    });
+$(document).ready(function() {
+  $('#predicted_table').DataTable({
+    "scorllX": true,
+    "scrollY": 500
   });
-  $("thead").addClass("thead-dark");
+  $('.dataTables_length').addClass('bs-select');
 });
 
 $(".custom-file-input").on("change", function() {
