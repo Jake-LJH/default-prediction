@@ -5,10 +5,72 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Default Detection</title>
     
-      <link rel="stylesheet" href="/static/main.css">
-</head>
-      <body>
-      
-      </body>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/static/css/main.css">
 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      
+</head>
+
+<body>
+      <div class="container">
+            <div class="jumbotron text-center">
+                  <h1>Credit Card Default Detection</h1>
+                  <p>A Machine Learning Model Approach</p>
+                  
+            </div>
+            <div class="row align-self-center w-100">
+                  <div class="col-8">
+                  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                  <br>
+                  
+                        <div class="table table-responsive tableFixHead">
+                              {% block content %}
+                              {{ table | safe}}
+                              {% endblock %}
+
+                        </div>
+                  
+                  </div>
+                  
+                        
+                  
+                  
+            <div class="col-4">
+                  <form action = "{{ url_for('default_prediction') }}" method = "post" enctype="multipart/form-data">
+                  
+                        <div class="custom-file mb-4">
+                              <input type="file" class="custom-file-input" id="fileUpload" name="file">
+                              <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <br>
+                        
+                        <button type="submit" class="btn btn-info btn-block btn-sm form-control">Predict</button>
+                        
+                  </form>
+                  <hr>
+                  <div class="card">
+                        <div class="card-body display-2 text-center">{{ records }}</div>
+                  </div>
+                  <hr>
+                  <div class="card">
+                        <div class="card-body">
+                              <img src="{{ image }}" class="img-fluid mx-auto"/>
+                        </div>
+                  </div>
+                  <hr>
+                  <form action="{{url_for('download_file', filename=f_name)}}" method = "GET">
+                        <button type="submit" class="btn btn-primary btn-block">Download Results</button>
+                  </form>
+            </div>
+            </div>
+            <footer class="footer">
+                  <p><kbd>Created & Design by Jake, Anusha, Anwal and Clifford</kbd></p>
+            </footer>
+            
+      </div>
+</body>
+<script src="/static/js/main.js"></script>
 </html>

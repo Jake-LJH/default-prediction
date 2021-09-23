@@ -11,6 +11,7 @@ import xlsxwriter
 import jinja2 
 from flask_cors import CORS
 from model.prediction import Prediction
+from model.Graph import Graph
 from model.User import User
 from werkzeug.utils import secure_filename
 from flask.helpers import send_from_directory
@@ -52,12 +53,12 @@ def newUser():
             organization = request.form['organization']
             password = request.form['password']
             cpassword = request.form['cpassword']   
-            #AccountType = request.form['accType']
+            accountType = request.form['accType']
 
             if cpassword != password: #password check if same
                 return render_template("createAccount.html",message="Passwords does not match")
             else:    
-                create_result = User.insertUser(name,email,password,organization)
+                create_result = User.insertUser(name,email,password,organization, accountType)
                 if create_result == True: 
                     return render_template('login.html',message="New User Created") #create new user response
                 else:    
@@ -100,6 +101,13 @@ def default_prediction():
             predicted_table.reset_index(inplace=True)
            
     return render_template('default_prediction.html',f_name= f.filename, show_table=True, table = predicted_table) #table_id="predicted_result", .to_html( classes="table table-striped table-bordered table-sm")
+
+            #htmlTable = df.to_html(classes="table table-bordered table-hover", justify='center', table_id='myTable', na_rep='-')
+            
+            
+
+           # pngImageB64String=Graph.generatePieChart(df)
+    #return render_template('main.html',f_name= f.filename, table = htmlTable, image=pngImageB64String, records=len(df))
 
 @app.route('/<filename>/download_file')   
 def download_file(filename)    :

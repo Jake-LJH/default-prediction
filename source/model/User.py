@@ -27,7 +27,7 @@ class User:
             print("release connection")
 
     @classmethod
-    def insertUser(cls,name,email,password,organization):
+    def insertUser(cls,name,email,password,organization,accType):
         dbConn=DatabasePool.getConnection()
         cursor = dbConn.cursor(dictionary=True)
 
@@ -37,7 +37,7 @@ class User:
         if len(row) == 0:
         
             sql="insert into user(username,email,password,organization) values(%s,%s,%s,%s)"
-            users = cursor.execute(sql,(name,email,password,organization))
+            users = cursor.execute(sql,(name,email,password,organization,accType))
         
             dbConn.commit()
             rows = cursor.rowcount
