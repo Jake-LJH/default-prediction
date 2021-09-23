@@ -439,10 +439,8 @@ body {
   bottom: 0;
   width: 100%;
   text-align: center;
-  background-color: #cccccc;
 }
 .table-fixed tbody {
   height: 300px;
-  
   width: 100%;
 }

@@ -22,7 +22,7 @@ class User:
                 return {"jwt":""}
             else:
                 print(user)
-                payload={"userid":user["id"],"username":user["username"],"exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=7200)}
+                payload={"userid":user["id"],"username":user["username"],"email":user["email"],"exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=7200)}
 
                 jwtToken=jwt.encode(payload,Settings.secretKey,algorithm="HS256")
                 return {"jwt":jwtToken}

@@ -7,43 +7,53 @@
     
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="/static/css/main.css">
-
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap4.min.css" />
+      <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+      <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
 </head>
 
 <body>
       <div class="container">
+            <nav class="navbar navbar-light bg-light">
+                  <span class="navbar-brand mb-0 h1">Welcome {{ g.username }}</span>
+                  <span class="text-right">
+                        <form action="{{ url_for('logout') }}" method = "post">
+                              <button type="submit" class="btn btn-outline-danger">Logout</button>
+                        </form>
+                  </span>
+            </nav>
             <div class="jumbotron text-center">
                   <h1>Credit Card Default Detection</h1>
                   <p>A Machine Learning Model Approach</p>
                   
             </div>
-
+            
             <div class="row align-self-center w-100">
                   <div class="col-8">
               
                   {% if show_table %}
-                      <table id="predicted_table" class="table  table-striped table-bordered table-sm" cellspacing="0", width="100%">
-                        <thead>
+                      <table id="predicted_table" class="table  table-striped table-bordered dataTable" cellspacing="0", width="100%">
+                        <thead class="text-center">
                           <tr>
                               <th  class="th-sm">Id</th>
                               <th  class="th-sm">Age</th>
-                              <th  class="th-sm">Bill Amount1</th>
-                              <th  class="th-sm">Limit Balance</th>
+                              <th  class="th-sm">Bill Amount ($)</th>
+                              <th  class="th-sm">Limit Balance ($)</th>
                               <th  class="th-sm">Default</th>
-                              <th  class="th-sm">probability</th>
+                              <th  class="th-sm">Probability</th>
                           </tr>
                       </thead>
                           
                           <tbody>
                             
                               {% for index, row in table.iterrows() %}
-                                <tr>
-                                    <td >{{row['ID']}}</td>
+                                <tr class="text-center">
+                                    <td>{{row['ID']}}</td>
                                     <td>{{row['AGE']}}</td>
                                     <td>{{row['BILL_AMT1']}}</td>
                                     <td>{{row['LIMIT_BAL']}}</td>
@@ -67,9 +77,11 @@
                         <div class="custom-file mb-4">
                               <input type="file" class="custom-file-input" id="fileUpload" name="file">
                               <label class="custom-file-label" for="customFile">Choose file</label>
+                              <small class="text-muted">*support only .xlsx</small>
                         </div>
-                        <br>
                         
+                        <br>
+                        <br>
                         <button type="submit" class="btn btn-info btn-block btn-sm form-control">Predict</button>
                         
                   </form>
@@ -77,11 +89,15 @@
                   {% if show_table %}
                       <div class="card">
                             <div class="card-body display-2 text-center">{{ records }}</div>
+                            <div class="text-center">
+                                  <p>Records Predicted</p>
+                            </div>  
                       </div>
                       <hr>
                       <div class="card">
                             <div class="card-body">
                                   <img src="{{ image }}" class="img-fluid mx-auto"/>
+                                  
                             </div>
                       </div>
                       
@@ -96,28 +112,17 @@
            
             
       </div>
-     <hr>
-     <hr>
-
-</body>
+     <br>
+     <br>
 <div>
   <footer class="footer">
     <p><kbd>Created & Design by Jake, Anusha, Anwar and Clifford</kbd></p>
 </footer>
 </div>
+</body>
+
 
 <script src="/static/js/main.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#predicted_table').DataTable({
-      "scorllX": true,
-      "scrollY": 500
-      
-     
-      
-    });
-    $('.dataTables_length').addClass('bs-select');
-  });
-  
-</script>
+
+
 </html>
