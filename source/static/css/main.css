@@ -439,12 +439,10 @@ body {
   bottom: 0;
   width: 100%;
   text-align: center;
+  background-color: #cccccc;
 }
-.tableFixHead {
-  overflow-y: auto;
-  height: 500px;
-}
-.tableFixHead thead th {
-  position: sticky;
-  top: 0;
+.table-fixed tbody {
+  height: 300px;
+  
+  width: 100%;
 }
