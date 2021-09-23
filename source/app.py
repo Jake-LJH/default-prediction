@@ -100,11 +100,12 @@ def default_prediction():
             
             predicted_table.reset_index(inplace=True)
             pngImageB64String=Graph.generatePieChart(predicted_table)
+             # changin the prediction result values of 1 and 0 to yes and no
+            predicted_table['default_result'] = ["yes" if x==1 else "No" for x in predicted_table['default_result']] 
+            
     return render_template('main.html',f_name= f.filename, records=len(predicted_table), image=pngImageB64String, show_table=True, table = predicted_table) #table_id="predicted_result", .to_html( classes="table table-striped table-bordered table-sm")
 
             #htmlTable = df.to_html(classes="table table-bordered table-hover", justify='center', table_id='myTable', na_rep='-')
-            
-            
 
            # pngImageB64String=Graph.generatePieChart(df)
     #return render_template('main.html',f_name= f.filename, table = htmlTable, image=pngImageB64String, records=len(df))
