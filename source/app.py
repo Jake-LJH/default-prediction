@@ -86,7 +86,7 @@ def main():
 @app.route('/default_prediction', methods = ['GET','POST'])
 @login_required
 def default_prediction():
-    print('yes')
+    
     if request.method == 'POST':
         
         f = request.files['file']

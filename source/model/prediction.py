@@ -24,14 +24,14 @@ class Prediction:
             #data['default_result'] = default_predict
             
             data['default_result'] = default_predict
-            print("default predict",default_predict)
+            
             for i in range(len(data['default_result'])):
                 prob.append('{:.2%}'.format(default_predict_prob[i][data['default_result'].iloc[i]]))
             data['probability'] = prob
             
             
             
-            print("default predict",default_predict)
+           
             writer = pd.ExcelWriter(os.path.join(upload_path, filename), engine='xlsxwriter')
             data.to_excel(writer, sheet_name='Sheet1')
             writer.save()
