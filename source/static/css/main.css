@@ -2,6 +2,9 @@ body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
   background: #f2f2f2;
+  background-image: url("/static/images/Banking.jpeg");
+  background-repeat: repeat-y;
+  background-size: cover;
 }
 
 .clearfix:after {
@@ -41,6 +44,7 @@ body {
   margin: 0;
 }
 .form_wrapper .title_container {
+  opacity: 1;
   text-align: center;
   padding-bottom: 15px;
 }
@@ -368,7 +372,7 @@ body {
   100% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
-    opacity: 1;
+    opacity: 0.9;
   }
 }
 @-webkit-keyframes bounce {
@@ -387,7 +391,7 @@ body {
   }
   100% {
     -webkit-transform: translate3d(0, 0, 0);
-    opacity: 1;
+    opacity: 0.9;
   }
 }
 @keyframes bounce {
@@ -411,7 +415,7 @@ body {
   100% {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-    opacity: 1;
+    opacity: 0.9;
   }
 }
 @media (max-width: 600px) {
