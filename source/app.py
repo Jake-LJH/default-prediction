@@ -100,7 +100,8 @@ def default_prediction():
             
             predicted_table.reset_index(inplace=True)
             pngImageB64String=Graph.generatePieChart(predicted_table)
-    return render_template('main.html',f_name= f.filename, records=len(predicted_table), image=pngImageB64String, show_table=True, table = predicted_table) #table_id="predicted_result", .to_html( classes="table table-striped table-bordered table-sm")
+            pngImageB64String2=Graph.generateProbabilityPieChart(predicted_table)
+    return render_template('main.html',f_name= f.filename, records=len(predicted_table), image=pngImageB64String,image2=pngImageB64String2, show_table=True, table = predicted_table) #table_id="predicted_result", .to_html( classes="table table-striped table-bordered table-sm")
 
             #htmlTable = df.to_html(classes="table table-bordered table-hover", justify='center', table_id='myTable', na_rep='-')
             
