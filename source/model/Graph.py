@@ -63,6 +63,7 @@ class Graph:
         prob6to7 = len(default_1.loc[(default_1['probability'] >= 0.6) & (default_1['probability'] < 0.7)])
         prob5to6 = len(default_1.loc[(default_1['probability'] >= 0.5) & (default_1['probability'] < 0.6)])
 
+        #labels for the pie chart
         labels = ['0.9 and above', '0.8 - 0.9', '0.7 - 0.8','0.6 - 0.7','0.5 - 0.6']
         probabilities = [prob9to1,prob8to9,prob7to8,prob6to7,prob5to6]
 
