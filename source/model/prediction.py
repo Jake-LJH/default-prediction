@@ -33,7 +33,6 @@ class Prediction:
             worksheet = writer.sheets['Sheet1']
             
             writer.close()      
-
         
         return data  
         '''

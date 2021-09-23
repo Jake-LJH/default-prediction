@@ -87,8 +87,6 @@ def default_prediction():
             file_ext = os.path.splitext(file_name)[1]
             if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                 abort(400)
-            
-        
         
             file_xl = pd.read_excel(f,index_col=0)
             data = pd.DataFrame(file_xl)
@@ -97,9 +95,11 @@ def default_prediction():
     
 
             default_predict = Prediction.getPredicted(data,f.filename,app.config['UPLOAD_PATH'])
-            predicted_table = pd.DataFrame(default_predict[['LIMIT_BAL','default payment prediction', 'probability']])
-            print("result",default_predict)
-    return render_template('default_prediction.html',f_name= f.filename, predicted_table = predicted_table.to_html(classes="table table-striped table-bordered table-sm"))
+            predicted_table = pd.DataFrame(default_predict[['AGE','BILL_AMT1','LIMIT_BAL','default payment prediction', 'probability']])
+            
+            predicted_table.reset_index(inplace=True)
+           
+    return render_template('default_prediction.html',f_name= f.filename, show_table=True, table = predicted_table) #table_id="predicted_result", .to_html( classes="table table-striped table-bordered table-sm")
 
 @app.route('/<filename>/download_file')   
 def download_file(filename)    :
