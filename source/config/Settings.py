@@ -5,15 +5,15 @@ class Settings:
 
     #Dev
     
-    host='localhost'
-    database='creditcard'
+    #host='localhost'
+    #database='creditcard'
     
-    user='root'
-    password='password'
+    #user='root'
+    #password='password'
     #password ="password"
 
     #Staging on heroku
-    #host=os.environ['HOST']
-    #database=os.environ['DATABASE']
-    #user=os.environ['USER']
-    #password=os.environ['PASSWORD']
+    host=os.environ['HOST']
+    database=os.environ['DATABASE']
+    user=os.environ['USER']
+    password=os.environ['PASSWORD']

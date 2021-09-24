@@ -78,13 +78,13 @@ def newUser():
         return render_template('createAccount.html',message="an error occured")
 
 @app.route('/main', methods = ['GET'])
-@login_required
+#@login_required
 def main():
     return render_template("main.html",show_table=False)
 
 
 @app.route('/default_prediction', methods = ['GET','POST'])
-@login_required
+#@login_required
 def default_prediction():
     
     if request.method == 'POST':
@@ -97,6 +97,7 @@ def default_prediction():
             file_ext = os.path.splitext(file_name)[1]
             if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                 abort(400)
+                #return render_template('main.html', msg="Please upload .xlsx file only")
         
             file_xl = pd.read_excel(f,index_col=0)
             data = pd.DataFrame(file_xl)

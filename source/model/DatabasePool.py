@@ -5,7 +5,7 @@ class DatabasePool:
     #class variable
     connection_pool = pooling.MySQLConnectionPool(
                                pool_name="ws_pool",
-                               pool_size=10,
+                               pool_size=2,
                                host=Settings.host,
                                database=Settings.database,
                                user=Settings.user,
