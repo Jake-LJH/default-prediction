@@ -78,13 +78,13 @@ def newUser():
         return render_template('createAccount.html',message="an error occured")
 
 @app.route('/main', methods = ['GET'])
-#@login_required
+@login_required
 def main():
     return render_template("main.html",show_table=False)
 
 
 @app.route('/default_prediction', methods = ['GET','POST'])
-#@login_required
+@login_required
 def default_prediction():
     
     if request.method == 'POST':
@@ -113,8 +113,10 @@ def default_prediction():
              # changin the prediction result values of 1 and 0 to yes and no
             predicted_table['default_result'] = ["Yes" if x==1 else "No" for x in predicted_table['default_result']] 
             predicted_table['probability'] = [x*100 for x in predicted_table['probability']]
+            predicted_table['BILL_AMT1'] =[f'${x:,}' for x in predicted_table['BILL_AMT1']]
+            predicted_table['LIMIT_BAL'] =[f'${x:,}' for x in predicted_table['LIMIT_BAL']]
             predicted_table['probability'] =  predicted_table['probability'].astype(str)+ '%'
-            print (predicted_table['probability'])
+            print (predicted_table['BILL_AMT1'])
     return render_template('main.html',f_name= f.filename, records=len(predicted_table), image=pngImageB64String, image2=pngImageB64String2, show_table=True, table = predicted_table) 
 
 @app.route('/<filename>/download_file')   
