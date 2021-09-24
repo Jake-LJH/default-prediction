@@ -118,7 +118,7 @@ def default_prediction():
             predicted_table['LIMIT_BAL'] =[f'${x:,}' for x in predicted_table['LIMIT_BAL']]
             predicted_table['probability'] =  predicted_table['probability'].astype(str)+ '%'
             print (predicted_table['BILL_AMT1'])
-    return render_template('main.html',f_name= f.filename, records=len(predicted_table), image=pngImageB64String, image2=pngImageB64String2, show_table=True, table = predicted_table) 
+    return render_template('Main.html',f_name= f.filename, records=len(predicted_table), image=pngImageB64String, image2=pngImageB64String2, show_table=True, table = predicted_table) 
 
 @app.route('/<filename>/download_file')   
 def download_file(filename)    :
