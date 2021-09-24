@@ -80,7 +80,7 @@ def newUser():
 @app.route('/main', methods = ['GET'])
 #@login_required
 def main():
-    return render_template("main.html",show_table=False)
+    return render_template("Main.html",show_table=False)
 
 
 @app.route('/default_prediction', methods = ['GET','POST'])
