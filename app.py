@@ -78,13 +78,13 @@ def newUser():
         return render_template('createAccount.html',message="An error occured")
 
 @app.route('/main', methods = ['GET'])
-#@login_required
+@login_required
 def main():
     return render_template("Main.html",show_table=False)
 
 
 @app.route('/default_prediction', methods = ['GET','POST'])
-#@login_required
+@login_required
 def default_prediction():
     
     if request.method == 'POST':
@@ -101,7 +101,7 @@ def default_prediction():
         
             file_xl = pd.read_excel(f,index_col=0)
             data = pd.DataFrame(file_xl)
-            #data['TOT_PAY_STATUS']=data['PAY_0']+data['PAY_2']+data['PAY_3']+data['PAY_4']+data['PAY_5']+data['PAY_6']
+            
             data=data[['PAY_0','BILL_AMT1','AGE','LIMIT_BAL','BILL_AMT2','BILL_AMT3','BILL_AMT4','PAY_AMT1','PAY_AMT2','PAY_AMT3']]
     
 
