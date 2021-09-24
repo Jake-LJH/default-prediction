@@ -39,7 +39,7 @@ def verifyUser():
             return render_template("login.html", message=error)
 
         else:
-            resp = make_response(render_template("main.html"))
+            resp = make_response(redirect("main"))
             resp.set_cookie('jwt', userSQLData["jwt"])
             return resp
 
@@ -75,7 +75,7 @@ def newUser():
             return render_template("login.html")
     except Exception as err:
         print(err)
-        return render_template('createAccount.html',message="an error occured")
+        return render_template('createAccount.html',message="An error occured")
 
 @app.route('/main', methods = ['GET'])
 @login_required
@@ -141,7 +141,7 @@ def login():
     except Exception as err:
         abort(404)
 
-@app.route('/logout') #define the api route
+@app.route('/logout', methods=["POST"]) #define the api route
 def logout():
     resp = make_response(render_template("login.html"))
     resp.delete_cookie('jwt')

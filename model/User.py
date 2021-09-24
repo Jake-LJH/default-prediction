@@ -36,27 +36,24 @@ class User:
             dbConn=DatabasePool.getConnection()
             cursor = dbConn.cursor(dictionary=True)
 
-            sql="select * from user where email=%s" #checks for existing user
-            cursor.execute(sql,(email,))
-            row = cursor.fetchall()
-            if len(row) == 0:
-            
-                sql="insert into user(username,email,password,organisation,acc_type,role) values(%s,%s,%s,%s,%s,%s)"
-                users = cursor.execute(sql,(name,email,password,organization,accType,role))
-            
-                dbConn.commit()
-                rows = cursor.rowcount
-                print(cursor.lastrowid)
+            sql="insert into user(username,email,password,organisation,acc_type,role) values(%s,%s,%s,%s,%s,%s)"
+            users = cursor.execute(sql,(name,email,password,organization,accType,role))
+            dbConn.commit()
+            rows = cursor.rowcount
+            if rows > 0:
+                
                 create_result = True
-                dbConn.close()
+                
+                return create_result
+            else:
+                
+                create_result = False
                 return create_result
             
-
-            else:
-
-                create_result = False
-                dbConn.close()
-                return create_result
+        except Exception as err:
+            print(err)
+            create_result = False
+            return create_result
         finally:
             dbConn.close()
 
