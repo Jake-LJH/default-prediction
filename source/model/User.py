@@ -2,42 +2,46 @@ from model.DatabasePool import DatabasePool
 import bcrypt
 from itsdangerous import URLSafeTimedSerializer
 from config.Settings import Settings
+import jwt
+import datetime
 
-secretKey="a12nc)238OmPq#cxOlm*a"
-salt = 'assignment_two'
+
 
 class User:
 
     @classmethod
-    def getUser(cls,email,password):
+    def getUser(cls,userJSON):
         try:
 
             dbConn=DatabasePool.getConnection()
             cursor = dbConn.cursor(dictionary=True)
-            sql="select * from Account where email=%s"
-            cursor.execute(sql,(email,))
-            users = cursor.fetchone()
-            
-        except:
-            users=0
-            return users
+            sql="select * from user where email=%s"
+            cursor.execute(sql,(userJSON["email"],))
+            user = cursor.fetchone()
+            if user==None:
+                return {"jwt":""}
+            else:
+                
+                payload={"userid":user["id"],"username":user["username"],"exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=7200)}
+
+                jwtToken=jwt.encode(payload,Settings.secretKey,algorithm="HS256")
+                return {"jwt":jwtToken}
 
         finally:
             dbConn.close()
-            print("release connection")
 
     @classmethod
-    def insertUser(cls,name,email,password,organization,accType):
+    def insertUser(cls,name,email,password,organization,accType,role):
         dbConn=DatabasePool.getConnection()
         cursor = dbConn.cursor(dictionary=True)
 
-        sql="select * from Account where email=%s" #checks for existing user
+        sql="select * from user where email=%s" #checks for existing user
         cursor.execute(sql,(email,))
         row = cursor.fetchall()
         if len(row) == 0:
         
-            sql="insert into user(username,email,password,organization) values(%s,%s,%s,%s)"
-            users = cursor.execute(sql,(name,email,password,organization,accType))
+            sql="insert into user(username,email,password,organisation,acc_type,role) values(%s,%s,%s,%s,%s,%s)"
+            users = cursor.execute(sql,(name,email,password,organization,accType,role))
         
             dbConn.commit()
             rows = cursor.rowcount

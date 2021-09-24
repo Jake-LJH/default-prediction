@@ -49,12 +49,11 @@ class Graph:
         fig = Figure()
         axis = fig.add_subplot(1, 1, 1)
         axis.axis('equal')
-        plt.title('Default Probability Distribution')
         #fig.suptitle('Defaulter Probability Distribution', fontsize=17)
         
         # retrieve all the predicted defaulters
         default_1 = data[data['default_result'] == 1]
-        default_1['probability'] = default_1['probability'].astype(float)
+        default_1['probability'] = pd.to_numeric(default_1['probability'], downcast="float")
 
         #Create 2nd pie chart grouped by probability
         prob9to1 = len(default_1.loc[(default_1['probability'] >= 0.9)])
