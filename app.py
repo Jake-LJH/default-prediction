@@ -78,13 +78,13 @@ def newUser():
         return render_template('createAccount.html',message="An error occured")
 
 @app.route('/main', methods = ['GET'])
-#@login_required
+@login_required
 def main():
     return render_template("Main.html",show_table=False)
 
 
 @app.route('/default_prediction', methods = ['GET','POST'])
-#@login_required
+@login_required
 def default_prediction():
     
     if request.method == 'POST':
