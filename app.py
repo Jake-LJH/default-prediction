@@ -68,9 +68,9 @@ def newUser():
             else:    
                 create_result = User.insertUser(name,email,password,organization,accountType,role)
                 if create_result == True: 
-                    return render_template('login.html',message="New User Created") #create new user response
+                    return render_template('login.html',message="New User Created") 
                 else:    
-                    return render_template('login.html',message="User email already exists") #fail to create new user notification
+                    return render_template('login.html',message="User email already exists") 
         else:
             return render_template("login.html")
     except Exception as err:
