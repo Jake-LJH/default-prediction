@@ -22,7 +22,7 @@ class Prediction:
             data['default_result'] = default_predict
 
             for i in range(len(data['default_result'])):
-                prob.append('{:.2}'.format(default_predict_prob[i][data['default_result'].iloc[i]]))
+                prob.append(default_predict_prob[i][data['default_result'].iloc[i]])
             data['probability'] = prob
             
             writer = pd.ExcelWriter(os.path.join(upload_path, filename), engine='xlsxwriter')

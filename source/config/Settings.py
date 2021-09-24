@@ -9,7 +9,7 @@ class Settings:
     database='creditcard'
     
     user='root'
-    password='root'
+    password='password'
     #password ="password"
 
     #Staging on heroku

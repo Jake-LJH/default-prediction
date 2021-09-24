@@ -39,7 +39,7 @@ def verifyUser():
             return render_template("login.html", message=error)
 
         else:
-            resp = make_response(redirect("main"))
+            resp = make_response(render_template("main.html"))
             resp.set_cookie('jwt', userSQLData["jwt"])
             return resp
 
@@ -78,13 +78,13 @@ def newUser():
         return render_template('createAccount.html',message="an error occured")
 
 @app.route('/main', methods = ['GET'])
-@login_required
+#@login_required
 def main():
     return render_template("main.html",show_table=False)
 
 
 @app.route('/default_prediction', methods = ['GET','POST'])
-@login_required
+#@login_required
 def default_prediction():
     
     if request.method == 'POST':
@@ -100,7 +100,7 @@ def default_prediction():
         
             file_xl = pd.read_excel(f,index_col=0)
             data = pd.DataFrame(file_xl)
-            
+            #data['TOT_PAY_STATUS']=data['PAY_0']+data['PAY_2']+data['PAY_3']+data['PAY_4']+data['PAY_5']+data['PAY_6']
             data=data[['PAY_0','BILL_AMT1','AGE','LIMIT_BAL','BILL_AMT2','BILL_AMT3','BILL_AMT4','PAY_AMT1','PAY_AMT2','PAY_AMT3']]
     
 
@@ -112,10 +112,10 @@ def default_prediction():
             pngImageB64String2=Graph.generateProbabilityPieChart(predicted_table)
              # changin the prediction result values of 1 and 0 to yes and no
             predicted_table['default_result'] = ["Yes" if x==1 else "No" for x in predicted_table['default_result']] 
+            predicted_table['probability'] = [x*100 for x in predicted_table['probability']]
             predicted_table['probability'] =  predicted_table['probability'].astype(str)+ '%'
-            print(predicted_table['probability'])
-            
-    return render_template('main.html',f_name= f.filename, records=len(predicted_table),image2=pngImageB64String2, image=pngImageB64String, show_table=True, table = predicted_table) 
+            print (predicted_table['probability'])
+    return render_template('main.html',f_name= f.filename, records=len(predicted_table), image=pngImageB64String, image2=pngImageB64String2, show_table=True, table = predicted_table) 
 
 @app.route('/<filename>/download_file')   
 def download_file(filename)    :
@@ -139,7 +139,7 @@ def login():
     except Exception as err:
         abort(404)
 
-@app.route('/logout', methods=["POST"]) #define the api route
+@app.route('/logout') #define the api route
 def logout():
     resp = make_response(render_template("login.html"))
     resp.delete_cookie('jwt')
