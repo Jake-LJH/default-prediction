@@ -39,7 +39,7 @@ def verifyUser():
             return render_template("login.html", message=error)
 
         else:
-            resp = make_response(render_template("main.html"))
+            resp = make_response(redirect("main"))
             resp.set_cookie('jwt', userSQLData["jwt"])
             return resp
 
@@ -68,19 +68,19 @@ def newUser():
             else:    
                 create_result = User.insertUser(name,email,password,organization,accountType,role)
                 if create_result == True: 
-                    return render_template('login.html',message="New User Created") #create new user response
+                    return render_template('login.html',message="New User Created") 
                 else:    
-                    return render_template('login.html',message="User email already exists") #fail to create new user notification
+                    return render_template('login.html',message="User email already exists") 
         else:
             return render_template("login.html")
     except Exception as err:
         print(err)
-        return render_template('createAccount.html',message="an error occured")
+        return render_template('createAccount.html',message="An error occured")
 
 @app.route('/main', methods = ['GET'])
 #@login_required
 def main():
-    return render_template("main.html",show_table=False)
+    return render_template("Main.html",show_table=False)
 
 
 @app.route('/default_prediction', methods = ['GET','POST'])
@@ -101,7 +101,7 @@ def default_prediction():
         
             file_xl = pd.read_excel(f,index_col=0)
             data = pd.DataFrame(file_xl)
-            #data['TOT_PAY_STATUS']=data['PAY_0']+data['PAY_2']+data['PAY_3']+data['PAY_4']+data['PAY_5']+data['PAY_6']
+            
             data=data[['PAY_0','BILL_AMT1','AGE','LIMIT_BAL','BILL_AMT2','BILL_AMT3','BILL_AMT4','PAY_AMT1','PAY_AMT2','PAY_AMT3']]
     
 
@@ -142,7 +142,7 @@ def login():
     except Exception as err:
         abort(404)
 
-@app.route('/logout') #define the api route
+@app.route('/logout', methods=["POST"]) #define the api route
 def logout():
     resp = make_response(render_template("login.html"))
     resp.delete_cookie('jwt')
