@@ -17,4 +17,5 @@ To demostrate our web application: https://cc-detection.herokuapp.com/
 Feel free to use this dummy account:
 
 Email: admin@admin.com
+
 Password: admin123
