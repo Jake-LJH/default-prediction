@@ -14,8 +14,16 @@ The goal behind using this model is to achieve two things:
 
 To demostrate our web application: https://cc-detection.herokuapp.com/
 
-Feel free to use this dummy account:
+## How to use the Web App:
+
+#### Step 1: Create an account or use this dummy account:
 
 Email: admin@admin.com
 
 Password: admin123
+
+#### Step 2: Download the file <code>test_data.xlsx</code>
+
+#### Step 3: Upload the file in the Web App
+
+#### Step 4: Predict
