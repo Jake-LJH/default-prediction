@@ -12,7 +12,9 @@ The goal behind using this model is to achieve two things:
 1.	Bring more consistency to the loaning process
 2.	Investigate what the key drivers are behind a potential defaulter
 
-To demostrate our web application: https://cc-detection.herokuapp.com/
+~~To demostrate our web application: https://cc-detection.herokuapp.com/~~
+
+:warning: :red_circle: **This link no longer active as Heroku does not provide free hosting** :red_circle: :warning:
 
 ## How to use the Web App:
 
